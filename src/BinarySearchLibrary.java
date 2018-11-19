@@ -32,6 +32,8 @@ public class BinarySearchLibrary {
     	int firstIndex(List<T> list, 
 	               	T target, Comparator<T> comp) {
 		
+		if (list.size()==0) return -1;
+		
 		// (low,high] contains target
 		int low = -1;
 		int high = list.size()-1;
@@ -69,6 +71,8 @@ public class BinarySearchLibrary {
 	public static <T>
 	int lastIndex(List<T> list, 
                	  T target, Comparator<T> comp) {
+		
+		if (list.size()==0) return -1;
 		
 		// target in [low,high)
 		int low = 0;

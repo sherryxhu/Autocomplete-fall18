@@ -2,8 +2,8 @@ import java.util.*;
 
 public class BinarySearchLibrary {
 	
-	public static <T>
-	    int firstIndexSlow(List<T> list, 
+	public static <T> 
+		int firstIndexSlow(List<T> list, 
 	    		           T target, Comparator<T> comp) {
 		int index = Collections.binarySearch(list, target,comp);
 		
@@ -32,11 +32,25 @@ public class BinarySearchLibrary {
     	int firstIndex(List<T> list, 
 	               	T target, Comparator<T> comp) {
 		
+		// (low,high] contains target
 		int low = -1;
 		int high = list.size()-1;
-		// (low,high] contains target
-		// TODO: complete method
 		
+		while(low+1!=high) {
+			int mid = (low+high)/2;
+			T midval = list.get(mid);
+			int cmp = comp.compare(midval,target);
+			
+			if (cmp<0){
+				low = mid;
+			}
+			else if (cmp>=0) {
+				high = mid;
+			}
+		}
+		if((high>=0 && high<list.size()) && comp.compare(list.get(high), target)==0){
+			return high;
+		}
 		return -1;
 	}
 
@@ -56,11 +70,25 @@ public class BinarySearchLibrary {
 	int lastIndex(List<T> list, 
                	  T target, Comparator<T> comp) {
 		
+		// target in [low,high)
 		int low = 0;
 		int high = list.size();
 		
-		// target in [low,high)
-		// TODO: complete method
+		while(low+1!=high) {
+			int mid = (low+high)/2;
+			T midval = list.get(mid);
+			int cmp = comp.compare(midval,target);
+			
+			if (cmp<=0){
+				low = mid;
+			}
+			else if (cmp>0) {
+				high = mid;
+			}
+		}
+		if((low>=0 && low<list.size()) && comp.compare(list.get(low), target)==0) {
+			return low;
+		}
 		return -1;
 	}
 	

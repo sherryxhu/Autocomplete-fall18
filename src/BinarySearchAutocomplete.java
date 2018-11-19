@@ -99,14 +99,30 @@ public class BinarySearchAutocomplete implements Autocompletor {
 	 * @return An array of the k words with the largest weights among all words
 	 *         starting with prefix, in descending weight order. If less than k
 	 *         such words exist, return an array containing all those words If
-	 *         no such words exist, reutrn an empty array
+	 *         no such words exist, return an empty array
 	 * @throws a
 	 *             NullPointerException if prefix is null
 	 */
 	@Override
 	public List<Term> topMatches(String prefix, int k) {
-
+		
 		ArrayList<Term> list = new ArrayList<>();
-		return list;
+		int firstIndex = firstIndexOf(myTerms, new Term(prefix, 0), new Term.PrefixOrder(prefix.length()));
+		int lastIndex = lastIndexOf(myTerms, new Term(prefix, 0), new Term.PrefixOrder(prefix.length()));
+		
+		if(firstIndex==-1) {
+			return new ArrayList<>();
+		}
+		
+		for(int i = firstIndex; i<= lastIndex; i++) {
+			list.add(myTerms[i]);
+		}
+		Collections.sort(list, new Term.ReverseWeightOrder());
+		ArrayList<Term> ansr = new ArrayList<>();
+		
+		for(int j = 0; j<k && j<list.size(); j++) {
+			ansr.add(list.get(j));
+		}
+		return ansr;
 	}
 }

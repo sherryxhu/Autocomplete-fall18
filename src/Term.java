@@ -91,10 +91,7 @@ public class Term implements Comparable<Term> {
 		 */
 		public int compare(Term v, Term w) {
 			for(int i=0; i<myPrefixSize; i++) {
-				if(v.getWord().charAt(i)!=w.getWord().charAt(i) || i==(myPrefixSize-1)) {
-					return v.getWord().charAt(i)-w.getWord().charAt(i);
-				}
-				if(i==(v.getWord().length()-1) || i==(w.getWord().length()-1)) {
+				if(i==(v.getWord().length()) || i==(w.getWord().length())) {
 					if(v.getWord().length()<w.getWord().length()) {
 						return -1;
 					}
@@ -102,6 +99,9 @@ public class Term implements Comparable<Term> {
 						return 1;
 					}
 					return 0;
+				}
+				if(v.getWord().charAt(i)!=w.getWord().charAt(i) || i==(myPrefixSize-1)) {
+					return v.getWord().charAt(i)-w.getWord().charAt(i);
 				}
 			}
 			
